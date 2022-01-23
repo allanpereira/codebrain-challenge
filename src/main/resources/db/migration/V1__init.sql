@@ -1,0 +1,6 @@
+CREATE TABLE `salespeople`(
+    `id` BIGINT UNSIGNED NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    `name` VARCHAR(255) NOT NULL,
+    `registration` VARCHAR(64) NOT NULL UNIQUE,
+    `deleted` BIT(1) NOT NULL DEFAULT 0
+);

@@ -1,0 +1,23 @@
+micronaut:
+  application:
+    name: api
+datasources:
+  default:
+    url: jdbc:tc:mysql:8://localhost:49236/codebrain-challenge-tests?user=root?password=
+    driverClassName: org.testcontainers.jdbc.ContainerDatabaseDriver
+jackson:
+  serializationInclusion: ALWAYS
+jpa:
+  default:
+    properties:
+      hibernate:
+        hbm2ddl:
+          auto: validate
+        show_sql: true
+flyway:
+  datasources:
+    default:
+      enabled: true
+      fail-on-missing-locations: true
+      locations:
+        - classpath:db/migration
