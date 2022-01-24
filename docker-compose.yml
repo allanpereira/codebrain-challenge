@@ -1,0 +1,16 @@
+version: '3'
+services:
+  db:
+    image: mysql:8
+    environment:
+      - MYSQL_ROOT_PASSWORD=12345678
+      - MYSQL_DATABASE=codebrain-challenge
+  api:
+    build: ./api
+    environment:
+      - MYSQL_HOST=db
+      - MYSQL_PORT=3306
+  front:
+    build: ./front
+    ports:
+      - 3000:3000
