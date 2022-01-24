@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import { Box, Button, Flex, FormControl, Heading, Spacer } from "@chakra-ui/react";
+import {Box, Button, Flex, FormControl, Heading, Spacer, useToast} from "@chakra-ui/react";
 import {CheckIcon } from "@chakra-ui/icons";
 
 import ShoppingCartProductsList from "./ShoppingCartProductsList";
@@ -11,6 +11,8 @@ export default function ShoppingCartContainer() {
 
   const sale = useSale();
   const dispatch = useSaleDispatch();
+
+  const toast = useToast();
 
   const onConfirmSaleClicked = async () => {
     setSubmittingSale(true);
@@ -31,6 +33,24 @@ export default function ShoppingCartContainer() {
 
       dispatch({
         type: 'CLEAR_SALE'
+      })
+
+      toast({
+        title: 'Success',
+        description: "Sale confirmed!",
+        position: 'bottom-right',
+        status: 'success',
+        duration: 3000,
+        isClosable: true,
+      })
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description: "Error while confirming sale",
+        position: 'bottom-right',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
       })
     } finally {
       setSubmittingSale(false);

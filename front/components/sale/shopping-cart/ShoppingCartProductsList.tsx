@@ -8,7 +8,7 @@ import {
   Tooltip,
   IconButton,
   Grid,
-  GridItem, Center
+  GridItem, Center, useToast
 } from "@chakra-ui/react";
 import {CheckIcon, CloseIcon} from '@chakra-ui/icons';
 import {useSaleDispatch, useSale} from "../SaleProvider";
@@ -19,12 +19,23 @@ export default function ShoppingCartProductsList() {
   const sale = useSale();
   const dispatch = useSaleDispatch();
 
+  const toast = useToast();
+
   const onRemoveItemFromCartClicked = (item: SaleItem, index: number) => {
     dispatch({
       type: 'REMOVE_ITEM_FROM_SALE',
       payload: {
         index,
       }
+    })
+
+    toast({
+      title: 'Success',
+      description: "Item removed from cart!",
+      position: 'bottom-right',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
     })
   }
 

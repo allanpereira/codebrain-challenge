@@ -1,32 +1,60 @@
 import React, { useState, useEffect } from 'react';
-import {Box, FormControl, Heading, Select, SimpleGrid, Text, Input, Button} from "@chakra-ui/react";
+import {
+  Box,
+  FormControl,
+  SimpleGrid,
+  Text,
+  Input,
+  Button,
+  NumberInputField,
+  NumberInput, useToast, Center
+} from "@chakra-ui/react";
 
 import ProductCard from "./ProductCard";
 import { Product } from "../../../types/entities/Product";
-import {useSaleDispatch, useSale} from "../SaleProvider";
+import { useSaleDispatch } from "../SaleProvider";
 
 export default function ProductsList() {
+  const [loadingProducts, setLoadingProducts] = useState<boolean>(false);
+
   const [idFilter, setIdFilter] = useState<string>('');
   const [nameFilter, setNameFilter] = useState<string>('');
 
   const [products, setProducts] = useState<Product[]>([]);
   const dispatch = useSaleDispatch();
 
+  const toast = useToast();
+
   const loadProducts = async () => {
-    let url = '/api/products?';
+    setLoadingProducts(true);
 
-    if (idFilter) {
-      url += `id=${idFilter}`;
+    try {
+      let url = '/api/products?';
+
+      if (idFilter) {
+        url += `id=${idFilter}`;
+      }
+
+      if (nameFilter) {
+        url += `name=${nameFilter}`;
+      }
+
+      const response = await fetch(url);
+      const { products: productsResponse } = await response.json();
+
+      setProducts(productsResponse);
+    } catch (err) {
+      toast({
+        title: 'Error',
+        description: "Error while loading products",
+        position: 'bottom-right',
+        status: 'error',
+        duration: 3000,
+        isClosable: true,
+      })
+    } finally {
+      setLoadingProducts(false);
     }
-
-    if (nameFilter) {
-      url += `name=${nameFilter}`;
-    }
-
-    const response = await fetch(url);
-    const { products: productsResponse } = await response.json();
-
-    setProducts(productsResponse);
   }
 
   const onAddToCartClicked = (product: Product, quantity: number) => {
@@ -36,6 +64,15 @@ export default function ProductsList() {
         product: product,
         quantity: quantity,
       }
+    })
+
+    toast({
+      title: 'Success',
+      description: "Item added to cart!",
+      position: 'bottom-right',
+      status: 'success',
+      duration: 3000,
+      isClosable: true,
     })
   }
 
@@ -53,13 +90,18 @@ export default function ProductsList() {
         <Box mb={4}>
           <FormControl>
             <Text>ID</Text>
-            <Input
+            <NumberInput
+              isDisabled={loadingProducts}
+              inputMode={"numeric"}
+              min={0}
               mt={4}
               value={idFilter}
-              onChange={(e) => {
-                setIdFilter(e.target.value);
+              onChange={(value) => {
+                setIdFilter(value);
               }}
-            />
+            >
+              <NumberInputField />
+            </NumberInput>
           </FormControl>
         </Box>
 
@@ -67,6 +109,7 @@ export default function ProductsList() {
           <FormControl>
             <Text>Name</Text>
             <Input
+              isDisabled={loadingProducts}
               mt={4}
               value={nameFilter}
               onChange={(e) => {
@@ -83,8 +126,8 @@ export default function ProductsList() {
                     backgroundColor={'#2B67E9'}
                     color={'#FFF'}
                     _hover={{ bg: '#2558c5'}}
-                    loadingText='Search'
-                    isLoading={false}
+                    loadingText='Search...'
+                    isLoading={loadingProducts}
                     onClick={() => onSearchClicked()}>
               Search
             </Button>
@@ -103,6 +146,10 @@ export default function ProductsList() {
           })
         }
       </SimpleGrid>
+
+      {products.length === 0 && <Center>
+        <Text as='i'>No products found</Text>
+      </Center>}
     </>
   );
 }
