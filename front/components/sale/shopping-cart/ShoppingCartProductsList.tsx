@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Button,
@@ -15,6 +15,7 @@ import {CheckIcon, CloseIcon} from '@chakra-ui/icons';
 import {useSaleDispatch, useSale} from "../SaleProvider";
 import CurrencyFormatter from "../../common/CurrencyFormatter";
 import { SaleItem } from "../../../types/state/SaleItem";
+import ShoppingCartTotalLabel from "./ShoppingCartTotalLabel";
 
 export default function ShoppingCartProductsList() {
   const sale = useSale();
@@ -63,35 +64,9 @@ export default function ShoppingCartProductsList() {
         })
       }
 
-      {sale.items.length > 0 &&
-      (<>
-        <hr/>
-          <Flex spacing={8} align={"flex-end"} w={'100%'} mt={4} mb={4}>
-            <Spacer />
-            <Heading as='h4' size='md'>
-              Total: {CurrencyFormatter(sale.totalPrice)}
-            </Heading>
-          </Flex>
-        <hr/>
-
-        <Flex spacing={8} align={"flex-end"} w={'100%'}>
-          <Spacer />
-          <Button leftIcon={<CheckIcon />} variant='solid' mt='4' size='md'
-                  backgroundColor={'#2B67E9'}
-                  color={'#FFF'}
-                  _hover={{ bg: '#2558c5'}}
-                  loadingText='Finishing sale'
-                  isLoading={false}
-                  onClick={() => {}}>
-            Confirm Sale
-          </Button>
-        </Flex>
-      </>)}
-
       {sale.items.length === 0 && <Center>
         <Text as='i'>Your shopping cart is empty!</Text>
       </Center>}
-
     </Box>
   );
 }

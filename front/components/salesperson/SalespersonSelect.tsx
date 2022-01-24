@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {FormControl, FormLabel, Heading, Select} from '@chakra-ui/react'
+import { FormControl, Heading, Select } from '@chakra-ui/react'
 
 import { Salesperson } from "../../types/entities/Salesperson";
 
-export default function SalespersonSelect() {
+export default function SalespersonSelect({ onChange }) {
   const [salespeople, setSalespeople] = useState<Salesperson[]>([]);
   const [value, setValue] = useState<string>('');
 
@@ -13,6 +13,10 @@ export default function SalespersonSelect() {
         const { salespeople: salespeopleResponse } = await response.json();
 
         setSalespeople(salespeopleResponse);
+
+        if (salespeopleResponse.length > 0) {
+          onChange(salespeopleResponse[0].id);
+        }
       }
 
       loadSalespeople();
@@ -27,6 +31,7 @@ export default function SalespersonSelect() {
           value={value}
           onChange={(e) => {
             setValue(e.target.value);
+            onChange(e.target.value);
           }}
         >
           {

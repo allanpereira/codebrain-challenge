@@ -4,6 +4,7 @@ import produce from "immer"
 import { Sale } from "../../types/state/Sale";
 
 const defaultSaleValue = {
+  salespersonId: null,
   items: [],
   totalPrice: 0
 };
@@ -16,6 +17,10 @@ const reducer = (state: Sale, action) => {
   const recalculateTotalPrice = (draft) => draft.items.reduce((acc, item) => acc + item.totalPrice, 0);
 
   switch (action.type) {
+    case 'SET_SALESPERSON':
+      return produce(state, (draft) => {
+        draft.salespersonId = action.payload.salespersonId;
+      });
     case 'ADD_ITEM_TO_SALE':
       return produce(state, (draft) => {
         draft.items.push({
@@ -30,6 +35,11 @@ const reducer = (state: Sale, action) => {
       return produce(state, (draft) => {
         draft.items = draft.items.filter((item, index) => index !== action.payload.index);
         draft.totalPrice = recalculateTotalPrice(draft)
+      });
+    case 'CLEAR_SALE':
+      return produce(state, (draft) => {
+        draft.items = [];
+        draft.totalPrice = 0
       });
     default:
       throw new Error(`Unknown action: ${action.type}`)

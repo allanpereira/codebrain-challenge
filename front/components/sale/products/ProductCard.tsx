@@ -11,8 +11,6 @@ export default function ProductCard({ product, onAddToCartClicked }: { product: 
   const [ quantity, setQuantity ] = useState(1);
 
   const onChangeQuantity = (value: number) => {
-    console.log('setQuantity', value);
-
     setQuantity(value);
   }
 

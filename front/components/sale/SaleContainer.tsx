@@ -1,10 +1,9 @@
-import React, { createContext, useContext, useState, useEffect } from 'react';
+import React from 'react';
 import { Tabs, TabList, TabPanels, Tab, TabPanel } from '@chakra-ui/react'
 
-import ProductsSelectionContainer from "./products/ProductsSelectionContainer";
-import SalespersonSelect from "../salesperson/SalespersonSelect";
-import ShoppingCartContainer from "./shopping-cart/ShoppingCartContainer";
 import { SaleProvider } from "./SaleProvider";
+import ShoppingCartTab from "./ShoppingCartTab";
+import ProductsTab from "./ProductsTab";
 
 
 export default function SaleContainer() {
@@ -18,12 +17,10 @@ export default function SaleContainer() {
 
         <TabPanels>
           <TabPanel>
-            <ProductsSelectionContainer />
+            <ProductsTab/>
           </TabPanel>
           <TabPanel>
-            <SalespersonSelect />
-
-            <ShoppingCartContainer />
+            <ShoppingCartTab/>
           </TabPanel>
         </TabPanels>
       </Tabs>
