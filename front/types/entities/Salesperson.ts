@@ -1,5 +1,5 @@
 export interface Salesperson {
-  id: number,
-  name: string,
+  id: number
+  name: string
   registration: string
 }
