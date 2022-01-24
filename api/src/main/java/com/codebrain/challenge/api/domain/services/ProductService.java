@@ -1,6 +1,7 @@
 package com.codebrain.challenge.api.domain.services;
 
 import com.codebrain.challenge.api.domain.entities.Product;
+import com.codebrain.challenge.api.domain.filters.ProductFilter;
 import com.codebrain.challenge.api.domain.repositories.ProductRepository;
 import io.micronaut.data.model.Pageable;
 import jakarta.inject.Inject;
@@ -29,8 +30,9 @@ public class ProductService {
         return this.productRepository.findById(id);
     }
 
-    public List<Product> find() {
-        return this.productRepository.find(Pageable.from(0, 100));
+    public List<Product> find(ProductFilter productFilter) {
+        String nameParam = productFilter.getName() == null ? null : "%" + productFilter.getName() + "%";
+        return this.productRepository.find(productFilter.getId(), nameParam, Pageable.from(0, 100));
     }
 
 }

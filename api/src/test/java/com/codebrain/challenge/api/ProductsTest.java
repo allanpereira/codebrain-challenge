@@ -74,6 +74,46 @@ class ProductsTest {
         Assertions.assertNotNull(response.body().getProducts());
     }
 
+    @Test
+    void shouldFindProductsById() {
+        Product expectedProduct = new Product();
+        expectedProduct.setId(1L);
+        expectedProduct.setName("Apple MacBook Air 8GB RAM 256GB SSD");
+        expectedProduct.setImageUrl("https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5721/5721600_sd.jpg;maxHeight=640;maxWidth=550");
+        expectedProduct.setPrice(89999L);
+        expectedProduct.setDeleted(false);
+
+        HttpRequest<Product> request = HttpRequest.GET("/products?id=1");
+        HttpResponse<ProductsResponse> response = client.toBlocking().exchange(request, ProductsResponse.class);
+
+        assertResponseStatus(200, response);
+        Assertions.assertNotNull(response.body());
+        Assertions.assertNotNull(response.body().getProducts());
+        Assertions.assertEquals(1L, response.body().getProducts().size());
+
+        assertProduct(expectedProduct, response.body().getProducts().get(0));
+    }
+
+    @Test
+    void shouldFindProductsByName() {
+        Product expectedProduct = new Product();
+        expectedProduct.setId(1L);
+        expectedProduct.setName("Apple MacBook Air 8GB RAM 256GB SSD");
+        expectedProduct.setImageUrl("https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5721/5721600_sd.jpg;maxHeight=640;maxWidth=550");
+        expectedProduct.setPrice(89999L);
+        expectedProduct.setDeleted(false);
+
+        HttpRequest<Product> request = HttpRequest.GET("/products?name=apple%20macbook");
+        HttpResponse<ProductsResponse> response = client.toBlocking().exchange(request, ProductsResponse.class);
+
+        assertResponseStatus(200, response);
+        Assertions.assertNotNull(response.body());
+        Assertions.assertNotNull(response.body().getProducts());
+        Assertions.assertEquals(1L, response.body().getProducts().size());
+
+        assertProduct(expectedProduct, response.body().getProducts().get(0));
+    }
+
     private void assertResponseStatus(int expectedStatus, HttpResponse<?> response) {
         Assertions.assertEquals(expectedStatus, response.getStatus().getCode());
     }

@@ -1,6 +1,8 @@
 package com.codebrain.challenge.api.http.controllers;
 
 import com.codebrain.challenge.api.domain.entities.Product;
+import com.codebrain.challenge.api.domain.filters.ProductFilter;
+import com.codebrain.challenge.api.domain.filters.SalespersonFilter;
 import com.codebrain.challenge.api.domain.services.ProductService;
 import com.codebrain.challenge.api.http.responses.ProductsResponse;
 import io.micronaut.http.HttpResponse;
@@ -40,8 +42,9 @@ public class ProductsController {
     }
 
     @Get
-    public ProductsResponse find() {
-        return new ProductsResponse(this.productService.find());
+    public ProductsResponse find(@QueryValue Optional<Long> id, @QueryValue Optional<String> name) {
+        ProductFilter productFilter = new ProductFilter(id.orElse(null), name.orElse(null));
+        return new ProductsResponse(this.productService.find(productFilter));
     }
 
 }
