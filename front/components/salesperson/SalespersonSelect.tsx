@@ -20,7 +20,7 @@ export default function SalespersonSelect({ onChange }) {
       }
 
       loadSalespeople();
-  }, [])
+  }, [onChange])
 
   return (
     <div>
@@ -35,7 +35,7 @@ export default function SalespersonSelect({ onChange }) {
           }}
         >
           {
-            salespeople.map(s => (<option value={s.id}>{s.name} ({s.registration})</option>))
+            salespeople.map(s => (<option key={s.id} value={s.id}>{s.name} ({s.registration})</option>))
           }
         </Select>
       </FormControl>

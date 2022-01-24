@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import {
   Box,
   FormControl,
@@ -7,7 +7,9 @@ import {
   Input,
   Button,
   NumberInputField,
-  NumberInput, useToast, Center
+  NumberInput,
+  Center,
+  useToast
 } from "@chakra-ui/react";
 
 import ProductCard from "./ProductCard";
@@ -82,6 +84,7 @@ export default function ProductsList() {
 
   useEffect(() => {
     loadProducts();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (
@@ -141,7 +144,7 @@ export default function ProductsList() {
         {
           products.map(product => {
             return (
-              <ProductCard product={product} onAddToCartClicked={onAddToCartClicked} />
+              <ProductCard key={product.id} product={product} onAddToCartClicked={onAddToCartClicked} />
             )
           })
         }

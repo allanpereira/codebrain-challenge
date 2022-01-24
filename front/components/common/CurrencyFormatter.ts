@@ -3,6 +3,8 @@ const formatter = Intl.NumberFormat('en-US', {
   currency: 'USD'
 })
 
-export default (valueInCents) => {
+const CurrencyFormatter = (valueInCents) => {
   return formatter.format(valueInCents / 100);
-};
+}
+
+export default CurrencyFormatter;

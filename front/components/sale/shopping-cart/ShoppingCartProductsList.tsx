@@ -43,7 +43,7 @@ export default function ShoppingCartProductsList() {
     <Box mt={"2"}>
       {
         sale.items.map((item, idx) => {
-          return <Box rounded='md' bg='white' mt={2} mb={2}>
+          return <Box rounded='md' bg='white' mt={2} mb={2} key={idx}>
             <Grid templateColumns='repeat(12, 1fr)' spacing={10}>
               <GridItem colSpan={[12, 8, 8, 8, 8]} >
                 <Heading as='h5' size='sm'>

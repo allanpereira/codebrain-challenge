@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { ProductsResponse } from "../../types/responses/ProductsResponse";
 
-export default async (req: NextApiRequest, res: NextApiResponse<ProductsResponse>) => {
+const productsApi = async (req: NextApiRequest, res: NextApiResponse<ProductsResponse>) => {
   let url = `${process.env.API_HOST}/products?`;
 
   if (req.query.id) {
@@ -17,3 +17,5 @@ export default async (req: NextApiRequest, res: NextApiResponse<ProductsResponse
 
   res.status(200).json(data)
 }
+
+export default productsApi
