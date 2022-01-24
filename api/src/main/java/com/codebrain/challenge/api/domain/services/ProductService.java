@@ -2,8 +2,10 @@ package com.codebrain.challenge.api.domain.services;
 
 import com.codebrain.challenge.api.domain.entities.Product;
 import com.codebrain.challenge.api.domain.repositories.ProductRepository;
+import io.micronaut.data.model.Pageable;
 import jakarta.inject.Inject;
 
+import java.util.List;
 import java.util.Optional;
 
 public class ProductService {
@@ -25,6 +27,10 @@ public class ProductService {
 
     public Optional<Product> get(Long id) {
         return this.productRepository.findById(id);
+    }
+
+    public List<Product> find() {
+        return this.productRepository.find(Pageable.from(0, 100));
     }
 
 }

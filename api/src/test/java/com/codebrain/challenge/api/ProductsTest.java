@@ -1,6 +1,7 @@
 package com.codebrain.challenge.api;
 
 import com.codebrain.challenge.api.domain.entities.Product;
+import com.codebrain.challenge.api.http.responses.ProductsResponse;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
 import io.micronaut.http.HttpStatus;
@@ -16,6 +17,8 @@ import org.junit.jupiter.api.Test;
 @MicronautTest
 class ProductsTest {
 
+    private final String PLACEHOLDER_IMG = "https://via.placeholder.com/150";
+
     @Inject
     EmbeddedApplication<?> application;
 
@@ -25,7 +28,7 @@ class ProductsTest {
 
     @Test
     void shouldCreateProduct() {
-        Product product = new Product("Apple - 10.2-Inch iPad (Latest Model) with Wi-Fi - 64GB", 32999L);
+        Product product = new Product("Apple - 10.2-Inch iPad (Latest Model) with Wi-Fi - 64GB", 32999L, PLACEHOLDER_IMG);
 
         HttpRequest<Product> request = HttpRequest.POST("/products", product);
         HttpResponse<Product> response = client.toBlocking().exchange(request, Product.class);
@@ -36,7 +39,7 @@ class ProductsTest {
 
     @Test
     void shouldUpdateProduct() {
-        Product product = new Product("Apple iPhone 13 256GB", 99999L);
+        Product product = new Product("Apple iPhone 13 256GB", 99999L, PLACEHOLDER_IMG);
 
         HttpRequest<Product> request = HttpRequest.PUT("/products/2", product);
         HttpResponse<Product> response = client.toBlocking().exchange(request, Product.class);
@@ -61,6 +64,16 @@ class ProductsTest {
         Assertions.assertEquals(HttpStatus.NOT_FOUND, exception.getStatus());
     }
 
+    @Test
+    void shouldFindProducts() {
+        HttpRequest<Product> request = HttpRequest.GET("/products");
+        HttpResponse<ProductsResponse> response = client.toBlocking().exchange(request, ProductsResponse.class);
+
+        assertResponseStatus(200, response);
+        Assertions.assertNotNull(response.body());
+        Assertions.assertNotNull(response.body().getProducts());
+    }
+
     private void assertResponseStatus(int expectedStatus, HttpResponse<?> response) {
         Assertions.assertEquals(expectedStatus, response.getStatus().getCode());
     }
@@ -74,6 +87,7 @@ class ProductsTest {
         Assertions.assertNotNull(actual.getId());
         Assertions.assertEquals(expected.getName(), actual.getName());
         Assertions.assertEquals(expected.getPrice(), actual.getPrice());
+        Assertions.assertEquals(expected.getImageUrl(), actual.getImageUrl());
 
         if (expectedId != null) {
             Assertions.assertEquals(expectedId, actual.getId());

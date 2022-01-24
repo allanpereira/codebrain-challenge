@@ -1,3 +1,3 @@
-INSERT INTO `products`(`name`, `price`) VALUES('Apple MacBook Air 8GB RAM 256GB SSD', 89999);
-INSERT INTO `products`(`name`, `price`) VALUES('Apple iPhone 13 128GB', 69999);
-INSERT INTO `products`(`name`, `price`) VALUES('Apple Watch Series 7 (GPS + Cellular) 41mm', 49999);
+INSERT INTO `products`(`name`, `price`, `image_url`) VALUES('Apple MacBook Air 8GB RAM 256GB SSD', 89999, "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/5721/5721600_sd.jpg;maxHeight=640;maxWidth=550");
+INSERT INTO `products`(`name`, `price`, `image_url`) VALUES('Apple iPhone 13 128GB', 69999, "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6443/6443282_sd.jpg;maxHeight=640;maxWidth=550");
+INSERT INTO `products`(`name`, `price`, `image_url`) VALUES('Apple Watch Series 7 (GPS + Cellular) 41mm', 49999, "https://pisces.bbystatic.com/image2/BestBuy_US/images/products/6215/6215932_sd.jpg;maxHeight=640;maxWidth=550");

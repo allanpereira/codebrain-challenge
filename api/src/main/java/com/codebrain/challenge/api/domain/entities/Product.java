@@ -21,14 +21,15 @@ public class Product {
     public Product() {
     }
 
-    public Product(@NotNull Long id, @NotNull String name, @NotNull Long price) {
-        this(name, price);
+    public Product(@NotNull Long id, @NotNull String name, @NotNull Long price, @NotNull String imageUrl) {
+        this(name, price, imageUrl);
         this.id = id;
     }
 
-    public Product(@NotNull String name, @NotNull Long price) {
+    public Product(@NotNull String name, @NotNull Long price, @NotNull String imageUrl) {
         this.name = name;
         this.price = price;
+        this.imageUrl = imageUrl;
     }
 
     @Id
@@ -43,6 +44,10 @@ public class Product {
     @NotNull
     @Column(name = "price", nullable = false)
     private Long price;
+
+    @NotNull
+    @Column(name = "image_url", nullable = false)
+    private String imageUrl;
 
     @NotNull
     @Column(name = "deleted", nullable = false, columnDefinition = "BIT(1) DEFAULT false")
@@ -73,6 +78,14 @@ public class Product {
         this.price = price;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public boolean isDeleted() {
         return deleted;
     }
@@ -86,6 +99,7 @@ public class Product {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Product product = (Product) o;
-        return deleted == product.deleted && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price);
+        return deleted == product.deleted && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price)
+                && Objects.equals(imageUrl, product.imageUrl);
     }
 }
