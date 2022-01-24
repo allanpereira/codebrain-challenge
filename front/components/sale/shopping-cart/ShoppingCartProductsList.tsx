@@ -1,7 +1,6 @@
-import React, { useState } from 'react';
+import React from 'react';
 import {
   Box,
-  Button,
   Flex,
   Spacer,
   Heading,
@@ -15,7 +14,6 @@ import {CheckIcon, CloseIcon} from '@chakra-ui/icons';
 import {useSaleDispatch, useSale} from "../SaleProvider";
 import CurrencyFormatter from "../../common/CurrencyFormatter";
 import { SaleItem } from "../../../types/state/SaleItem";
-import ShoppingCartTotalLabel from "./ShoppingCartTotalLabel";
 
 export default function ShoppingCartProductsList() {
   const sale = useSale();
