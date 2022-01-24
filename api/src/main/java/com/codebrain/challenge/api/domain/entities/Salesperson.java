@@ -21,6 +21,10 @@ public class Salesperson {
     public Salesperson() {
     }
 
+    public Salesperson(@NotNull Long id) {
+        this.id = id;
+    }
+
     public Salesperson(@NotNull Long id, @NotNull String name, @NotNull String registration) {
         this(name, registration);
         this.id = id;
@@ -87,9 +91,6 @@ public class Salesperson {
         if (o == null || getClass() != o.getClass()) return false;
         Salesperson that = (Salesperson) o;
 
-        return deleted == that.deleted &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(registration, that.registration);
+        return deleted == that.deleted && Objects.equals(id, that.id) && Objects.equals(name, that.name) && Objects.equals(registration, that.registration);
     }
 }

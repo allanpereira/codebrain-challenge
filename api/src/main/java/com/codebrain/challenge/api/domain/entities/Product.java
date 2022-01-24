@@ -21,6 +21,10 @@ public class Product {
     public Product() {
     }
 
+    public Product(@NotNull Long id) {
+        this.id = id;
+    }
+
     public Product(@NotNull Long id, @NotNull String name, @NotNull Long price, @NotNull String imageUrl) {
         this(name, price, imageUrl);
         this.id = id;

@@ -17,6 +17,8 @@ public interface ProductRepository extends CrudRepository<Product, Long> {
     @Query("UPDATE Product SET deleted = true WHERE id = :id")
     void deleteById(@NonNull @NotNull Long id);
 
+    List<Product> findByIds(List<Long> ids);
+
     List<Product> find(Pageable pageable);
 
 }
