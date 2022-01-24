@@ -10,6 +10,8 @@ services:
     environment:
       - MYSQL_HOST=db
       - MYSQL_PORT=3306
+    ports:
+      - 8080:8080
   front:
     build: ./front
     ports:
