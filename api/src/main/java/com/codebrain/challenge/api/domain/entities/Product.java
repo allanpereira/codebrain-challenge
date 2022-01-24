@@ -13,22 +13,22 @@ import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
-@Table(name = "salespeople")
+@Table(name = "products")
 
 @Where(clause = "deleted = false")
-public class Salesperson {
+public class Product {
 
-    public Salesperson() {
+    public Product() {
     }
 
-    public Salesperson(@NotNull Long id, @NotNull String name, @NotNull String registration) {
-        this(name, registration);
+    public Product(@NotNull Long id, @NotNull String name, @NotNull Long price) {
+        this(name, price);
         this.id = id;
     }
 
-    public Salesperson(@NotNull String name, @NotNull String registration) {
+    public Product(@NotNull String name, @NotNull Long price) {
         this.name = name;
-        this.registration = registration;
+        this.price = price;
     }
 
     @Id
@@ -41,8 +41,8 @@ public class Salesperson {
     private String name;
 
     @NotNull
-    @Column(name = "registration", nullable = false, unique = true)
-    private String registration;
+    @Column(name = "price", nullable = false)
+    private Long price;
 
     @NotNull
     @Column(name = "deleted", nullable = false, columnDefinition = "BIT(1) DEFAULT false")
@@ -65,12 +65,12 @@ public class Salesperson {
         this.name = name;
     }
 
-    public String getRegistration() {
-        return registration;
+    public Long getPrice() {
+        return price;
     }
 
-    public void setRegistration(String registration) {
-        this.registration = registration;
+    public void setPrice(Long price) {
+        this.price = price;
     }
 
     public boolean isDeleted() {
@@ -85,11 +85,7 @@ public class Salesperson {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Salesperson that = (Salesperson) o;
-
-        return deleted == that.deleted &&
-                Objects.equals(id, that.id) &&
-                Objects.equals(name, that.name) &&
-                Objects.equals(registration, that.registration);
+        Product product = (Product) o;
+        return deleted == product.deleted && Objects.equals(id, product.id) && Objects.equals(name, product.name) && Objects.equals(price, product.price);
     }
 }
