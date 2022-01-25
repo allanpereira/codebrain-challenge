@@ -72,3 +72,66 @@ curl --request GET \
   --url http://localhost:8080/salespeople?registration=:registration \
   --header 'Content-Type: application/json'
 ```
+
+
+### Products
+
+#### Create Product
+
+```shell
+curl --request POST \
+  --url http://localhost:8080/products \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Test Product",
+    "price": "999",
+    "imageUrl": "https://via.placeholder.com/150"
+  }'
+```
+
+#### Update Product
+
+```shell
+curl --request PUT \
+  --url http://localhost:8080/products/:id \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "name": "Test Product Updated",
+    "price": "444",
+    "imageUrl": "https://via.placeholder.com/150"
+  }'
+```
+
+#### Remove Product
+
+```shell
+curl --request DELETE \
+  --url http://localhost:8080/products/:id \
+  --header 'Content-Type: application/json'
+```
+
+#### Get Product
+
+```shell
+curl --request GET \
+  --url http://localhost:8080/products/:id \
+  --header 'Content-Type: application/json'
+```
+
+
+#### Find Product By Id
+
+```shell
+curl --request GET \
+  --url http://localhost:8080/products?id=:id \
+  --header 'Content-Type: application/json'
+```
+
+
+#### Find Product By Name
+
+```shell
+curl --request GET \
+  --url http://localhost:8080/products?name=:name \
+  --header 'Content-Type: application/json'
+```
