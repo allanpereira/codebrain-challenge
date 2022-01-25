@@ -91,7 +91,6 @@ curl --request GET \
   --header 'Content-Type: application/json'
 ```
 
-
 #### Find Salesperson By Registration
 
 ```shell
@@ -99,7 +98,6 @@ curl --request GET \
   --url http://localhost:8080/salespeople?registration=:registration \
   --header 'Content-Type: application/json'
 ```
-
 
 ### Products
 
@@ -145,7 +143,6 @@ curl --request GET \
   --header 'Content-Type: application/json'
 ```
 
-
 #### Find Product By Id
 
 ```shell
@@ -154,7 +151,6 @@ curl --request GET \
   --header 'Content-Type: application/json'
 ```
 
-
 #### Find Product By Name
 
 ```shell
@@ -162,7 +158,6 @@ curl --request GET \
   --url http://localhost:8080/products?name=:name \
   --header 'Content-Type: application/json'
 ```
-
 
 ### Sales
 
@@ -186,3 +181,11 @@ curl --request POST \
       ]
     }'
 ```
+
+## Screenshots from sales page
+
+---
+
+![Products Tab](screenshots/products.png "Products Tab")
+
+![Shopping Cart Tab](screenshots/shopping_cart.png "Shopping Cart Tab")
