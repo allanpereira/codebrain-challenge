@@ -135,3 +135,27 @@ curl --request GET \
   --url http://localhost:8080/products?name=:name \
   --header 'Content-Type: application/json'
 ```
+
+
+### Sales
+
+#### Create a Sale
+
+```shell
+curl --request POST \
+  --url http://localhost:8080/sales \
+  --header 'Content-Type: application/json' \
+  --data '{
+      "salespersonId": 2,
+      "products": [
+        {
+          "id": 1,
+          "quantity": 1
+        },
+        {
+          "id": 2,
+          "quantity": 2
+        }
+      ]
+    }'
+```
